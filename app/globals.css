@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gyr-graphite: #101820;
+  --gyr-amber: #f5a623;
+  --gyr-paper: #f0f3f5;
+  --gyr-cyan: #20b8b2;
+  --gyr-cyan-strong: #15928d;
+  --gyr-container: 1280px;
+  --gyr-header: 72px;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--gyr-header) + 24px);
+}
+
+body {
+  background: var(--gyr-paper);
+  color: var(--gyr-graphite);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--gyr-amber);
+  color: var(--gyr-graphite);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gyr-cyan-strong);
+  outline-offset: 3px;
+}
+
+@layer components {
+  .container-gyr {
+    width: 100%;
+    max-width: var(--gyr-container);
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+  }
+
+  .tech-grid {
+    background-image:
+      linear-gradient(rgba(16, 24, 32, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(16, 24, 32, 0.055) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .tech-grid-dark {
+    background-image:
+      linear-gradient(rgba(240, 243, 245, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(240, 243, 245, 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .eyebrow {
+    @apply font-mono text-[11px] font-medium uppercase tracking-[0.22em];
+  }
+
+  .btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xs px-5 py-3 text-sm font-semibold transition-colors duration-200;
+  }
+
+  .btn-primary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xs bg-amber px-5 py-3 text-sm font-semibold text-graphite transition-colors duration-200 hover:bg-amber-400;
+  }
+
+  .btn-dark {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xs bg-graphite px-5 py-3 text-sm font-semibold text-technical transition-colors duration-200 hover:bg-graphite-800;
+  }
+
+  .btn-outline-light {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xs border border-white/25 px-5 py-3 text-sm font-semibold text-technical transition-colors duration-200 hover:border-amber hover:text-amber;
+  }
+
+  .btn-outline-dark {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xs border border-graphite/25 px-5 py-3 text-sm font-semibold text-graphite transition-colors duration-200 hover:border-graphite hover:bg-graphite hover:text-technical;
+  }
+
+  .btn-icon {
+    @apply inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xs border border-graphite/20 text-graphite transition-colors hover:border-graphite hover:bg-graphite hover:text-technical disabled:pointer-events-none disabled:opacity-40;
+  }
+
+  .label {
+    @apply mb-2 block text-sm font-semibold text-graphite;
+  }
+
+  .field {
+    @apply w-full rounded-xs border border-graphite/25 bg-white px-3.5 py-3 text-[15px] text-graphite placeholder:text-graphite/60 transition-colors focus:border-electric focus:outline-none focus:ring-2 focus:ring-electric/25;
+  }
+
+  .field[aria-invalid="true"] {
+    @apply border-danger focus:border-danger focus:ring-danger/20;
+  }
+
+  .field-hint {
+    @apply mt-1.5 text-xs leading-relaxed text-graphite/65;
+  }
+
+  .field-error {
+    @apply mt-1.5 text-sm font-medium text-danger;
+  }
+
+  .fine-rule {
+    @apply border-t border-graphite/15;
+  }
+
+  .qty-input {
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+
+  .qty-input::-webkit-outer-spin-button,
+  .qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+/* ——— Entrada sobria al hacer scroll ——— */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ——— Trazo eléctrico del hero ——— */
+@keyframes line-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.rule-draw {
+  transform-origin: left;
+  animation: line-draw 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+@keyframes node-in {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.node-in {
+  animation: node-in 0.45s ease 0.95s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .rule-draw,
+  .node-in {
+    animation: none;
+    transform: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
