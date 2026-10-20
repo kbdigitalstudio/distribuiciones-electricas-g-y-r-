@@ -5,11 +5,12 @@ Sitio de **Distribuciones Eléctricas G&R SAS** construido con
 Identidad técnico-industrial en grafito, ámbar y cian, con experiencia
 bilingüe ES/EN y flujo de cotización sin precios publicados.
 
-> **Estado:** implementación local terminada y verificada. No desplegada.
-> Publicada en GitHub:
+> **Estado:** implementación terminada, desplegada y verificada en Vercel:
+> `https://distribuiciones-electricas-g-y-r.vercel.app`.
+> Repositorio:
 > `https://github.com/kbdigitalstudio/distribuiciones-electricas-g-y-r-`.
-> Pendiente de datos comerciales confirmados, backend de contacto y dominio
-> definitivo. No se ha realizado despliegue.
+> Pendiente de dominio propio, canales comerciales confirmados, backend de
+> envío y datos de catálogo definitivos.
 
 ## Stack
 
@@ -96,9 +97,11 @@ preparar la solicitud desde `/cotizacion`.
 - `sitemap.xml` con las 8 rutas indexables y alternates de idioma.
 - `robots.txt` permite el sitio y bloquea `/api/`.
 - `/cotizacion` queda fuera del sitemap y lleva `noindex`.
-- La URL canónica es **provisional**: por defecto
-  `https://www.gyrsas.com`, que **no resuelve**. Debe configurarse
-  `NEXT_PUBLIC_SITE_URL` antes de publicar.
+- En producción, `NEXT_PUBLIC_SITE_URL` apunta a
+  `https://distribuiciones-electricas-g-y-r.vercel.app`. Esa es la URL
+  canónica actual en canonical, Open Graph y sitemap.
+- Al configurar un dominio propio, actualizar `NEXT_PUBLIC_SITE_URL` en
+  Vercel y volver a desplegar.
 
 ## Ejecutar localmente
 
@@ -113,16 +116,29 @@ npm run build
 Variables de entorno: copiar `.env.example` a `.env.local`.
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://dominio-oficial.example
+NEXT_PUBLIC_SITE_URL=https://distribuiciones-electricas-g-y-r.vercel.app
 ```
+
+## Despliegue
+
+- **Producción:** Vercel, equipo `kbdigitalstudio`.
+- **URL:** `https://distribuiciones-electricas-g-y-r.vercel.app`
+- **Proyecto:** `distribuiciones-electricas-g-y-r`
+- **Rama de producción:** `main`
+- **Git integration:** conectada al repositorio; los cambios en `main`
+  generan un nuevo despliegue de producción.
+- **Variable configurada:** `NEXT_PUBLIC_SITE_URL` en Production, Preview y
+  Development.
+- **Dominio propio:** no configurado todavía.
 
 ## Datos e integraciones pendientes
 
-1. **Dominio oficial** y confirmación de la URL canónica.
+1. **Dominio propio** y actualización de la URL canónica. Hoy se usa el
+   subdominio de producción de Vercel.
 2. **Razón social oficial**: el repositorio original decía
    «Distribuidora Electrónica G y R SAS»; el sitio usa el nombre indicado
    para el proyecto, «Distribuciones Eléctricas G&R SAS». Confirmar antes de
-   publicar.
+   la versión definitiva.
 3. **Canales comerciales**: correo, teléfono, WhatsApp, dirección exacta,
    horarios y persona responsable. No hay ninguno confirmado en la interfaz.
 4. **Catálogo real**: SKU, marcas, referencias, especificaciones, precios,
@@ -152,10 +168,10 @@ No reutilizar hasta validarlos con la empresa.
   `public/images/catalog/` son **imágenes de referencia locales**. No son
   instalaciones, productos ni proyectos de la empresa. Se etiquetan como
   «Imagen de referencia» cuando corresponde.
-- Antes de publicar, sustituirlas por fotografía propia o documentar su
-  licencia y crédito.
+- Antes de la versión definitiva, sustituirlas por fotografía propia o
+  documentar su licencia y crédito.
 
-## Verificación local
+## Verificación local y producción
 
 Última revisión: **19 de octubre de 2026**.
 
@@ -163,9 +179,12 @@ No reutilizar hasta validarlos con la empresa.
 - `npm run lint`: sin advertencias ni errores.
 - `npm run build`: 10 rutas públicas bilingües (5 × ES/EN), más `robots.txt`,
   `sitemap.xml` y la ruta API.
-- 60 combinaciones ruta × ancho (360, 390, 768, 1024, 1280, 1440 px): sin
-  desbordamiento horizontal, solapamiento de cabecera, errores de consola,
-  fallos de red ni respuestas 4xx/5xx inesperadas.
+- Despliegue de producción en Vercel completado y verificado.
+- 60 combinaciones ruta × ancho contra producción (360, 390, 768, 1024,
+  1280, 1440 px): sin desbordamiento horizontal, errores de consola, fallos
+  de red ni imágenes rotas.
+- Canonical de producción, 8 URLs en sitemap, `x-default`, `noindex` en
+  cotización, redirecciones raíz y assets: verificados en producción.
 - Contraste de texto revisado en las 10 rutas a 390 y 1280 px: sin fallos
   AA detectados; tamaño mínimo de texto 10 px para microetiquetas.
 - Flujos probados: búsqueda, filtros, orden, estado vacío, alta y edición de

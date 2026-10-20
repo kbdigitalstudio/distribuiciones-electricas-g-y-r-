@@ -28,16 +28,14 @@ export const CONTACT_NOTICE_EN =
   "Official phone and email channels are being confirmed. For now, your request is prepared and reviewed on this device before you share it.";
 
 /**
- * URL canónica provisional. Si NEXT_PUBLIC_SITE_URL no está definida,
- * el sitio usa un dominio de referencia que NO resuelve. Debe configurarse
- * antes de publicar para evitar canónicas y sitemap incorrectos.
+ * URL canónica del despliegue de producción.
+ * Si NEXT_PUBLIC_SITE_URL está definida (como en Vercel), esa variable manda.
+ * Al configurar un dominio propio, actualizar la variable en Vercel.
  */
 const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
-export const SITE_URL = (configuredSiteUrl || "https://www.gyrsas.com").replace(
-  /\/$/,
-  "",
-);
-export const IS_SITE_URL_PROVISIONAL = !configuredSiteUrl;
+export const SITE_URL = (
+  configuredSiteUrl || "https://distribuiciones-electricas-g-y-r.vercel.app"
+).replace(/\/$/, "");
 
 export function absoluteUrl(path = ""): string {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
